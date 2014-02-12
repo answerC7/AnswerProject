@@ -1,0 +1,16 @@
+﻿@model MvcApplication1.UserInfo
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.Raw(TempData["err"].ToString())
+<h2>Login</h2>
+@using (Html.BeginForm("Login","User"))
+{
+    <table>
+    <tr><td>Account:</td><td>@Html.TextBoxFor(x=>x.UserName)</td></tr>
+        <tr><td>Password:</td><td>@Html.PasswordFor(x=>x.UserPassword)</td></tr>
+    <tr><td><input type="submit" value="Login" /></td><td></td></tr>
+    </table>
+}

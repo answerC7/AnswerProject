@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CalendarDBModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="CalendarDBModelStoreContainer">
+    <EntitySet Name="CalendarInfo" EntityType="CalendarDBModel.Store.CalendarInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="DeptInfo" EntityType="CalendarDBModel.Store.DeptInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="JoinInfo" EntityType="CalendarDBModel.Store.JoinInfo" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="UserInfo" EntityType="CalendarDBModel.Store.UserInfo" store:Type="Tables" Schema="dbo" />
+  </EntityContainer>
+  <EntityType Name="CalendarInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="nvarchar" Nullable="false" MaxLength="200" />
+    <Property Name="Location" Type="nvarchar" Nullable="false" MaxLength="500" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" Nullable="false" />
+    <Property Name="Remark" Type="nvarchar" MaxLength="200" />
+    <Property Name="ContactNumber" Type="varchar" MaxLength="50" />
+    <Property Name="ContactName" Type="nvarchar" MaxLength="50" />
+    <Property Name="CalendarType" Type="int" Nullable="false" />
+    <Property Name="CalendarCode" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="DeptInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="DeptName" Type="nvarchar" Nullable="false" MaxLength="100" />
+    <Property Name="DeptCode" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="CreateUserAccount" Type="varchar" Nullable="false" MaxLength="100" />
+    <Property Name="CreateTime" Type="datetime" />
+  </EntityType>
+  <EntityType Name="JoinInfo">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="CalendarId" Type="int" Nullable="false" />
+    <Property Name="JoinerAccount" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="UserInfo">
+    <Key>
+      <PropertyRef Name="Uid" />
+    </Key>
+    <Property Name="Uid" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="UserPassword" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="UserEmail" Type="varchar" MaxLength="50" />
+    <Property Name="UserPhone" Type="varchar" MaxLength="50" />
+    <Property Name="UserDeptCode" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+</Schema>

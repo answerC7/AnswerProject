@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CalendarDBModelStoreContainer" CdmEntityContainer="CalendarDBEntities">
+    <EntitySetMapping Name="DeptInfo">
+      <EntityTypeMapping TypeName="CalendarDBModel.DeptInfo">
+        <MappingFragment StoreEntitySet="DeptInfo">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="DeptName" ColumnName="DeptName" />
+          <ScalarProperty Name="DeptCode" ColumnName="DeptCode" />
+          <ScalarProperty Name="CreateUserAccount" ColumnName="CreateUserAccount" />
+          <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UserInfo">
+      <EntityTypeMapping TypeName="CalendarDBModel.UserInfo">
+        <MappingFragment StoreEntitySet="UserInfo">
+          <ScalarProperty Name="Uid" ColumnName="Uid" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="UserPassword" ColumnName="UserPassword" />
+          <ScalarProperty Name="UserEmail" ColumnName="UserEmail" />
+          <ScalarProperty Name="UserPhone" ColumnName="UserPhone" />
+          <ScalarProperty Name="UserDeptCode" ColumnName="UserDeptCode" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CalendarInfo">
+      <EntityTypeMapping TypeName="CalendarDBModel.CalendarInfo">
+        <MappingFragment StoreEntitySet="CalendarInfo">
+          <ScalarProperty Name="CalendarCode" ColumnName="CalendarCode" />
+          <ScalarProperty Name="CalendarType" ColumnName="CalendarType" />
+          <ScalarProperty Name="ContactName" ColumnName="ContactName" />
+          <ScalarProperty Name="ContactNumber" ColumnName="ContactNumber" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+          <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JoinInfo">
+      <EntityTypeMapping TypeName="CalendarDBModel.JoinInfo">
+        <MappingFragment StoreEntitySet="JoinInfo">
+          <ScalarProperty Name="JoinerAccount" ColumnName="JoinerAccount" />
+          <ScalarProperty Name="CalendarId" ColumnName="CalendarId" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

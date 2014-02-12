@@ -1,0 +1,41 @@
+﻿@model MvcApplication1.Models.CalendarWeekDate
+
+@{
+    ViewBag.Title = "DeptCalendar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+   <script src="@Url.Content("~/Scripts/lhgdialog/lhgdialog.js")" type="text/javascript"></script>
+}
+<script type="text/javascript">
+    function AddCalendar() {
+        
+        var url = '@Url.Action("CalendarForm")';
+
+        $.dialog({
+            width: 478,
+            height: 358,
+            title: 'Add Calendar',
+            content: 'url:' + url,
+            lock: true
+        });
+    }
+
+
+</script>
+<h2>DeptCalendar</h2>
+<h3>@Model.BeginDate</h3>
+<div id="calendar" >
+    <div class="calendarTr"><div class="dayregion dayDiv">date/week</div><div class="dayregion calendarDiv">Morning</div><div class="dayregion calendarDiv">Afternoon</div></div>
+    
+    @foreach (var dayModel in Model.DateList)
+    {
+        <div class="calendarTr">
+            <div class="canendarregion dayContent">@dayModel.WeekString<br/>@dayModel.DateString</div>
+            <div class="canendarregion calendarContent" onclick="AddCalendar()"></div>
+            <div class="canendarregion calendarContent"></div>
+        </div>
+        <div style="clear: both"></div>
+    }
+    
+    <input type="button" value="aa" id="btnaa" />
+
+</div>
