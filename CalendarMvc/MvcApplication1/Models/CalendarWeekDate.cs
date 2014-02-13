@@ -10,5 +10,6 @@ namespace MvcApplication1.Models
         public DateTime BeginDate { get; set; }
         public DateTime EndDate { get; set; }
         public List<WeekDate>DateList{get; set;}
+
     }
 }

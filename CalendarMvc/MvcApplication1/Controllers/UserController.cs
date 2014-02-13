@@ -23,9 +23,10 @@ namespace MvcApplication1.Controllers
                 {
                      IQueryable<UserInfo> userInfos = calEntityEntities.UserInfo.Where(
                         x => x.UserName == user.UserName && x.UserPassword == user.UserPassword);
+                    
                     if (userInfos.Any())
-                    {                       
-                        Session["user"] = user.UserName;
+                    {
+                        Session["user"] = userInfos.First();
                         return RedirectToAction("CalendarNavigation", "Home");
                     }
                     else

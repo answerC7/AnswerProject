@@ -11,5 +11,10 @@ namespace MvcApplication1.Models
         public string WeekString { get; set; }
 
         public string DateString { get; set; }
+
+        public List<CalendarInfo> Forenoon { get; set; }
+
+        public List<CalendarInfo> Afternoon { get; set; }
+
     }
 }
