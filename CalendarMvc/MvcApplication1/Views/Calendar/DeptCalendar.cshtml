@@ -17,7 +17,7 @@
 
 <script type="text/javascript">
     function AddCalendar() {
-        
+
         var url = '@Url.Action("CalendarForm")';
 
         $.dialog({
@@ -30,6 +30,23 @@
         });
     }
 
+    function EditCalendar(id) {
+        var url = '@Url.Action("CalendarEdit")' +'?calendarId='+id ;
+
+        $.dialog({
+            id: "CalendarFormBox",
+            width: 478,
+            height: 358,
+            title: 'Edit Calendar',
+            content: 'url:' + url,
+            lock: true
+        });
+        
+
+        //阻止事件冒泡
+        event.stopPropagation();
+
+    }
 
 </script>
 <h2>DeptCalendar</h2>
@@ -44,16 +61,16 @@
             <!--上午日程-->
             <div class="canendarregion calendarContent" onclick="AddCalendar()">
                 
-                    @if (dayModel.Forenoon!=null)
+                @if (dayModel.Forenoon!=null)
+                {
+                    foreach (var forenoonCalendar in dayModel.Forenoon)
                     {
-                        foreach (var forenoonCalendar in dayModel.Forenoon)
-                         {
                             
-                            <div class="titleContent">
-                             @forenoonCalendar.Title
-                                </div>
-                         }
+                        <div class="titleContent" onclick="EditCalendar(@forenoonCalendar.ID)">
+                            @forenoonCalendar.Title
+                        </div>
                     }
+                }
                 
             </div>
             <!--下午日程-->

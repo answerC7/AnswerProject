@@ -20,7 +20,7 @@ namespace MvcApplication1.Controllers
            
             return View(GetWeekCalendar(DateTime.Now));
         }
-
+        
         public CalendarWeekDate GetWeekCalendar(DateTime selcTime)
         {
             var calendarWeek=new CalendarWeekDate();
@@ -156,6 +156,59 @@ namespace MvcApplication1.Controllers
         {
             ViewBag.Title = "Add New Calendar";
             return View();
+        }
+
+        public ActionResult CalendarEdit(int calendarId)
+        {
+            CalendarInfo calendarObj=new CalendarInfo();
+            using (var calendarEntity = new CalendarDBEntities())
+            {
+                 //calendarObj =calendarEntity.CalendarInfo.FirstOrDefault(x => x.ID == calendarId);
+
+                 //var joinList = calendarEntity.JoinInfo.Where(x => x.CalendarId == calendarId).ToList();
+
+                var calendarList = (from cf in calendarEntity.CalendarInfo
+                    join jf in calendarEntity.JoinInfo on cf.ID equals jf.CalendarId
+                    where cf.ID == calendarId
+                    select new
+                    {
+                        cf.ID,
+                        cf.Title,
+                        jf.JoinerAccount,
+                        cf.StartTime,
+                        cf.EndTime,
+                        cf.Location
+
+                    }
+                    );
+
+                var calendarData = (from aa in calendarList.ToList()
+                                select new CalendarInfo
+                                {
+                                    ID = aa.ID,
+                                    Title = aa.Title,
+                                    JoinAccounts = aa.JoinerAccount,
+                                    StartTime = aa.StartTime,
+                                    EndTime = aa.EndTime,
+                                    Location = aa.Location
+                                }).ToList();
+
+
+                calendarObj = calendarData.GroupJoin(calendarData, a => a.ID, b => b.ID,
+                       (a, b) => new CalendarInfo
+                       {
+                           ID = a.ID,
+                           Title = a.Title,
+                           JoinAccounts = b.Select(p => p.JoinAccounts).Aggregate((c, d) => c + ',' + d),
+                           StartTime = a.StartTime,
+                           EndTime = a.EndTime,
+                           Location = a.Location
+                       }
+                       ).GroupBy(p => p.ID).Select(g => g.First()).ToList().First();
+
+            }
+
+            return View("CalendarForm", calendarObj);
         }
 
         [HttpPost]

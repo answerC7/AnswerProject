@@ -277,6 +277,7 @@
     <Content Include="Views\Calendar\CalendarForm.cshtml" />
     <Content Include="Views\Calendar\GetTreeData.cshtml" />
     <Content Include="Views\Calendar\TreeViewShow.cshtml" />
+    <Content Include="Views\Calendar\CalendarEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
