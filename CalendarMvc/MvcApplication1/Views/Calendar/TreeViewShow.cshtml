@@ -27,14 +27,15 @@
                }
             };       
 
-            $.getJSON("GetTreeData", {}, function (data) {
-               
+            $.getJSON("GetTreeData", {}, function(data) {
+
                 $.fn.zTree.init($("#treeview"), setting, data);
 
+                checkingNode("name",'@ViewBag.SelectNodes');
             });
 
             $("#btnClose").click(function() {
-                   
+
                 window.parent.$.dialog({ id: 'TreeViewBox' }).close();
 
             });
@@ -45,16 +46,14 @@
                 $('#txtJoinerAccount', window.parent.document).val($("#SelectName").attr("text"));
                 window.parent.$.dialog({ id: 'TreeViewBox' }).close();
             });
-
-
         });
 
         function onCheck(e, treeId, treeNode) {
             var zTree = $.fn.zTree.getZTreeObj("treeview"),
-            nodes = zTree.getCheckedNodes(true),
-            selectName = "";
+                nodes = zTree.getCheckedNodes(true),
+                selectName = "";
             for (var i = 0, l = nodes.length; i < l; i++) {
-                selectName += nodes[i].name + ",";
+                    selectName += nodes[i].name + ",";
             }
             if (selectName.length > 0)
                 selectName = selectName.substring(0, selectName.length - 1);
@@ -63,15 +62,31 @@
             selectObj.attr("text", selectName);
         }
 
+        function checkingNode(key, values) {
+            var selectObj = $("#SelectName");
+            selectObj.html(values);
+            selectObj.attr("text", values);
 
-    </script>
+            var zTreeObj = $.fn.zTree.getZTreeObj("treeview");
+            
+            var arr = values.split(",");
+            for (var i = 0; i < arr.length; i++) {
+                var node = zTreeObj.getNodeByParam(key, arr[i],null);
+                if (node != null) {
+                    node.checked = true;
+                    zTreeObj.updateNode(node);
+                }
+            }
+
+        }
+
+      </script>
 }
 
 <h2>TreeViewShow</h2>
 <div id="treeview" class="ztree">
     
     
-
 </div>
 
 @Html.TextArea("SelectName")

@@ -9,7 +9,6 @@
 <style>
     .titleContent {
         color: blue;
-
     }
 
     </style>
@@ -41,8 +40,7 @@
             content: 'url:' + url,
             lock: true
         });
-        
-
+       
         //阻止事件冒泡
         event.stopPropagation();
 
@@ -67,7 +65,7 @@
                     {
                             
                         <div class="titleContent" onclick="EditCalendar(@forenoonCalendar.ID)">
-                            @forenoonCalendar.Title
+                            title:@forenoonCalendar.Title location:@forenoonCalendar.Location 
                         </div>
                     }
                 }
@@ -75,7 +73,16 @@
             </div>
             <!--下午日程-->
             <div class="canendarregion calendarContent" onclick="AddCalendar()">
-                
+                 @if (dayModel.Afternoon!=null)
+                {
+                    foreach (var afternoonCalendar in dayModel.Afternoon)
+                    {
+                            
+                        <div class="titleContent" onclick="EditCalendar(@afternoonCalendar.ID)">
+                            title:@afternoonCalendar.Title location:@afternoonCalendar.Location
+                        </div>
+                    }
+                }
 
             </div>
         </div>

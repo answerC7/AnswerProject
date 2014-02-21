@@ -265,12 +265,11 @@ namespace MvcApplication1.Controllers
 
                  return Json(list.ToList(), JsonRequestBehavior.AllowGet);         
             }
-
-            
         }
 
-        public ActionResult TreeViewShow()
+        public ActionResult TreeViewShow(string selectNodes)
         {
+            ViewBag.SelectNodes = selectNodes;
             return View();
         }
 

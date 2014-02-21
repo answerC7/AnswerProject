@@ -65,3 +65,4 @@ E:\Personal\CalendarMvc\MvcApplication1\bin\zh-Hans\EntityFramework.resources.dl
 E:\Personal\CalendarMvc\MvcApplication1\bin\zh-Hans\System.Web.Providers.resources.dll
 E:\Personal\CalendarMvc\MvcApplication1\obj\Debug\MvcApplication1.dll
 E:\Personal\CalendarMvc\MvcApplication1\obj\Debug\MvcApplication1.pdb
+E:\Personal\CalendarMvc\MvcApplication1\obj\Debug\CalendarProject.csprojResolveAssemblyReference.cache

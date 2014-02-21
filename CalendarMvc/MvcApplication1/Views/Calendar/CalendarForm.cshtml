@@ -37,17 +37,19 @@
             //$(".BtnCss").button();
 
             //choose button event
-            $("#ChoosePerson").click(function() {
-                var url = '@Url.Action("TreeViewShow")';
+            $("#ChoosePerson").click(function () {
+
+                var checkNodes = $.trim($("#JoinAccounts").val());
+
+                var url = '@Url.Action("TreeViewShow")' + "?selectNodes="+checkNodes;
                 $.dialog({
                     id:"TreeViewBox",
                     width: 478,
                     height: 358,
                     title: 'PersonTree',
-                    content: 'url:'+url,
+                    content: 'url:' + url ,
                     lock: true
                 });
-
             });
 
             $("#btnClose").click(function() {
@@ -61,12 +63,11 @@
             $("#EndTime").datetimepicker({ dateFormat: 'yy-mm-dd' });
 
             $.validator.setDefaults({
-                submitHandler: function() {
-
-                    $("#calendarForm").submit();
-                    
-                    window.parent.$.dialog({ id: 'CalendarFormBox' }).close();
-
+                submitHandler: function(form) {
+                    alert("submiting");
+                    $(form).submit();
+                    return true;
+                    //window.parent.$.dialog({ id: 'CalendarFormBox' }).close();
                 }
             });
 
