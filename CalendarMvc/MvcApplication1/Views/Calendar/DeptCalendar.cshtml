@@ -15,6 +15,17 @@
 
 
 <script type="text/javascript">
+
+    $(function() {
+
+        $("#btnNex").click(function() {
+
+            //var url = '@Url.Action("DeptCalendar")';
+
+        });
+
+    });
+
     function AddCalendar() {
 
         var url = '@Url.Action("CalendarForm")';
@@ -49,6 +60,10 @@
 </script>
 <h2>DeptCalendar</h2>
 <h3>@Model.BeginDate</h3>
+<input type="button" value="previous" id="btnPre" />
+&nbsp;&nbsp;
+<input type="button" value="next" id="btnNex" />
+
 <div id="calendar" >
     <div class="calendarTr"><div class="dayregion dayDiv">date/week</div><div class="dayregion calendarDiv">Morning</div><div class="dayregion calendarDiv">Afternoon</div></div>
     

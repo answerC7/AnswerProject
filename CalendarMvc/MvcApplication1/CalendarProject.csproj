@@ -128,9 +128,13 @@
     <Compile Include="JoinInfo.cs">
       <DependentUpon>CalendarDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CalendarRepository.cs" />
     <Compile Include="Models\CalendarWeekDate.cs" />
     <Compile Include="Models\Common\DateHelper.cs" />
     <Compile Include="Models\Enum\WeekDay.cs" />
+    <Compile Include="Models\Interface\ICalendarRepository.cs" />
+    <Compile Include="Models\Interface\IUserRepository.cs" />
+    <Compile Include="Models\UserRepository.cs" />
     <Compile Include="Models\WeekDate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserInfo.cs">

@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using MvcApplication1
+<!DOCTYPE html>
 <html>
 <head>
     <title>@ViewBag.Title</title>
@@ -8,12 +9,17 @@
 
     <body>
         <h3>Header</h3>
-        <h4>Welcom to Calendar of Zhao,@{ Session["user"] = Session["user"] == null ? "guest" : Session["user"];}@Session["user"]</h4>
-        <div id="header">
+        <h4>Welcom to Calendar of Zhao,@{ string CurrentUserName = Session["user"] == null ? "guest" : ((UserInfo)Session["user"]).UserName;}@CurrentUserName</h4>
+        @if (Session["user"] == null)
+        {
+            <div id="header">
             @Html.ActionLink("Login","Login","User")
             &nbsp;&nbsp;
             @Html.ActionLink("Register","Register","User")
         </div>
+            
+        }
+        
         @RenderBody()
     </body>
 </html>

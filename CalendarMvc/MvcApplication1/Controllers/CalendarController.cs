@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using MvcApplication1.Models;
 using MvcApplication1.Models.Common;
 using MvcApplication1.Models.Enum;
+using MvcApplication1.Models.Interface;
 
 namespace MvcApplication1.Controllers
 {
@@ -15,141 +16,16 @@ namespace MvcApplication1.Controllers
         //
         // GET: /Calendar/
 
+        private readonly ICalendarRepository _calendarRepository=new CalendarRepository();
+
         public ActionResult DeptCalendar()
         {
-           
             return View(GetWeekCalendar(DateTime.Now));
         }
         
         public CalendarWeekDate GetWeekCalendar(DateTime selcTime)
         {
-            var calendarWeek=new CalendarWeekDate();
-            calendarWeek.BeginDate = DateHelper.GetWeekBeginDate(selcTime, WeekDay.Sunday);
-            calendarWeek.EndDate = calendarWeek.BeginDate.AddDays(6);
-            var weeklList=new List<WeekDate>();
-            //forenoon calendar
-            var forenoonCalendar = new List<CalendarInfo>();
-            //afternoon calendar
-            var afternoonCalendar = new List<CalendarInfo>();
-            var currentUser = (UserInfo)Session["user"];
-            for (int i = 0; i <= 6; i++)
-            {
-                weeklList.Add(new WeekDate()
-                {
-                    DateString = calendarWeek.BeginDate.AddDays(i).Date.ToString(),
-                    WeekString = GetWeekName(i)
-                });
-
-                //get weekday calendar             
-                using (var calendarEntity = new CalendarDBEntities())
-                {
-                    var startTime = Convert.ToDateTime(weeklList[i].DateString);
-                    var midTime = startTime.AddHours(12);
-                    var endTime = startTime.AddHours(24);
-                    var forenoonList = (from cf in calendarEntity.CalendarInfo
-                                        join jf in calendarEntity.JoinInfo on cf.ID equals jf.CalendarId
-                                        where cf.StartTime >= startTime && cf.StartTime <= midTime
-                                        orderby cf.StartTime ascending 
-                                        select new 
-                                        {
-                                             cf.ID,
-                                            cf.Title,
-                                             jf.JoinerAccount,
-                                            cf.StartTime,
-                                             cf.EndTime,
-                                            cf.Location
-                                        });
-
-                    var afternoonList = (from cf in calendarEntity.CalendarInfo
-                                         join jf in calendarEntity.JoinInfo on cf.ID equals jf.CalendarId
-                                         where cf.StartTime >= midTime && cf.StartTime <= endTime
-                                         orderby cf.StartTime
-                                         select new 
-                                         {
-                                             cf.ID,
-                                             cf.Title,
-                                             jf.JoinerAccount,
-                                             cf.StartTime,
-                                             cf.EndTime,
-                                             cf.Location
-                                         });                
-
-                    var foreList = (from aa in forenoonList.ToList()
-                              select new CalendarInfo
-                              {
-                                  ID = aa.ID,
-                                  Title = aa.Title,
-                                  JoinAccounts = aa.JoinerAccount,
-                                  StartTime = aa.StartTime,
-                                  EndTime = aa.EndTime,
-                                  Location = aa.Location
-                              }).ToList();
-
-                    var afterList = (from aa in afternoonList.ToList()
-                                              select new CalendarInfo
-                                              {
-                                                  ID = aa.ID,
-                                                  Title = aa.Title,
-                                                  JoinAccounts = aa.JoinerAccount,
-                                                  StartTime = aa.StartTime,
-                                                  EndTime = aa.EndTime,
-                                                  Location = aa.Location
-                                              }).ToList();
-
-                    //Aggregate joinaccount
-                   weeklList[i].Forenoon = foreList.GroupJoin(foreList, a => a.ID, b => b.ID,
-                        (a, b) => new CalendarInfo
-                        {
-                            ID = a.ID,
-                            Title = a.Title,
-                            JoinAccounts = b.Select(p => p.JoinAccounts).Aggregate((c, d) => c + ',' + d),
-                            StartTime = a.StartTime,
-                            EndTime = a.EndTime,
-                            Location = a.Location
-                        }
-                        ).GroupBy(p => p.ID).Select(g => g.First()).ToList();
-
-                   weeklList[i].Afternoon = afterList.GroupJoin(afterList, a => a.ID, b => b.ID,
-                      (a, b) => new CalendarInfo
-                      {
-                          ID = a.ID,
-                          Title = a.Title,
-                          JoinAccounts = b.Select(p => p.JoinAccounts).Aggregate((c, d) => c + ',' + d),
-                          StartTime = a.StartTime,
-                          EndTime = a.EndTime,
-                          Location = a.Location
-                      }
-                      ).GroupBy(p => p.ID).Select(g => g.First()).ToList();
-
-                }
-
-            }
-            calendarWeek.DateList = weeklList;
-            return calendarWeek;
-        }
-
-
-        public string GetWeekName(int weekIndex)
-        {
-            switch (weekIndex)
-            {
-                case 0:
-                    return "Sunday";
-                case 1:
-                    return "Monday";
-                case 2:
-                    return "Tuesday";
-                case 3:
-                    return "Wednesday";
-                case 4:
-                    return "Thursday";
-                case 5:
-                    return "Friday";
-                case 6:
-                    return "Saturday";
-                default:
-                    return null;
-            }
+             return _calendarRepository.GetWeekCalendar(selcTime);
         }
 
         public ActionResult CalendarForm()

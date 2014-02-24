@@ -4,6 +4,22 @@
     ViewBag.Title = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<script type="text/javascript">
+
+    $(function() {
+
+        $("#btnReset").click(function() {
+
+            $("#UserName").val('').focus();
+            $("#UserPassword").val('');
+
+        });
+
+    });
+
+    </script>
+
 @Html.Raw(TempData["err"].ToString())
 <h2>Login</h2>
 @using (Html.BeginForm("Login","User"))
@@ -11,6 +27,6 @@
     <table>
     <tr><td>Account:</td><td>@Html.TextBoxFor(x=>x.UserName)</td></tr>
         <tr><td>Password:</td><td>@Html.PasswordFor(x=>x.UserPassword)</td></tr>
-    <tr><td><input type="submit" value="Login" /></td><td></td></tr>
+    <tr><td><input type="submit" value="Login" /></td><td><input type="button" value="reset" id="btnReset"></td></tr>
     </table>
 }

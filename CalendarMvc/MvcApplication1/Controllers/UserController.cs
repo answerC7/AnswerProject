@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcApplication1.Models;
+using MvcApplication1.Models.Interface;
 
 namespace MvcApplication1.Controllers
 {
     public class UserController : Controller
     {
+
+        private readonly IUserRepository _userRepository = new UserRepository();
+
         public ActionResult Login()
         {
             TempData["err"] = "";
@@ -17,25 +22,14 @@ namespace MvcApplication1.Controllers
         [HttpPost]
         public ActionResult Login(UserInfo user)
         {
-            using (CalendarDBEntities calEntityEntities = new CalendarDBEntities())
+            UserInfo userInfo = _userRepository.Login(user);
+            if (userInfo != null)
             {
-                if (user!=null)
-                {
-                     IQueryable<UserInfo> userInfos = calEntityEntities.UserInfo.Where(
-                        x => x.UserName == user.UserName && x.UserPassword == user.UserPassword);
-                    
-                    if (userInfos.Any())
-                    {
-                        Session["user"] = userInfos.First();
-                        return RedirectToAction("CalendarNavigation", "Home");
-                    }
-                    else
-                    {
-                        TempData["err"] = "<script>alert('Your account or password is not valid')</script>";
-                    }
-                }
-                return View();
+                Session["user"] = userInfo;
+                return RedirectToAction("CalendarNavigation", "Home");
             }
+            TempData["err"] = "<script>alert('Your account or password is not valid')</script>";
+            return View();          
         }
 
         public ActionResult Register()
@@ -46,16 +40,12 @@ namespace MvcApplication1.Controllers
         [HttpPost]
         public ActionResult Register(UserInfo user)
         {
-            using (CalendarDBEntities calEntityEntities=new CalendarDBEntities())
+            UserInfo userModel = _userRepository.Register(user);
+            if (userModel != null)
             {
-                if (user!=null)
-                {
-                    calEntityEntities.UserInfo.Add(user);
-                    calEntityEntities.SaveChanges();
-                }
-                return View();
+                return RedirectToAction("Login");
             }
-             
+            return View();
         }
 
     }
